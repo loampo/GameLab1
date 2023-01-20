@@ -19,7 +19,6 @@ public class EnemyHoverAI : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         //agent.SetDestination(flag.position);
-        agent = GetComponent<NavMeshAgent>();
         agent.SetDestination(flags[0].position);
     }
 
