@@ -15,6 +15,7 @@ public class HoverControlRay : MonoBehaviour
 
     private Rigidbody rb;
     private Vector3 raycastDirection = Vector3.down;
+    public GameObject winCanvas;
 
     void Start()
     {
@@ -61,5 +62,12 @@ public class HoverControlRay : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+    }
+
+    void ShowVictoryScreen()
+    {
+        winCanvas.SetActive(true);
+        Time.timeScale = 0; //Pause the game
+        //You can also set the victory message on the canvas
     }
 }
