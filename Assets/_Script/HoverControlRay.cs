@@ -13,7 +13,7 @@ public class HoverControlRay : MonoBehaviour
     public float jumpForce = 5.0f;
     public LayerMask groundLayers;
 
-    private Rigidbody rb;
+    public Rigidbody rb;
     private Vector3 raycastDirection = Vector3.down;
     public GameObject winCanvas;
 
