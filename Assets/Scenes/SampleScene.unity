@@ -1117,7 +1117,6 @@ GameObject:
   m_Component:
   - component: {fileID: 37781877}
   - component: {fileID: 37781879}
-  - component: {fileID: 37781878}
   m_Layer: 5
   m_Name: speedbar
   m_TagString: Untagged
@@ -1146,18 +1145,6 @@ RectTransform:
   m_AnchoredPosition: {x: 474, y: -456}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &37781878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 37781876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8364407997452648b8fbfd92037bae8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &37781879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35528,7 +35515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bf092390f305c14e920fb9fa87910bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverHeight: 10
+  hoverHeight: 5
   hoverForce: 5
   forwardAcceleration: 20000
   backwardAcceleration: 20000
@@ -35581,6 +35568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8364407997452648b8fbfd92037bae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedometer: {fileID: 37781879}
 --- !u!43 &1136258935
 Mesh:
   m_ObjectHideFlags: 0
