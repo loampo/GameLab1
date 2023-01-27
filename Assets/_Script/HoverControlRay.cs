@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class HoverControlRay : Collectible
+public class HoverControlRay : MonoBehaviour
 {
     public float hoverHeight = 5.0f;
     public float hoverForce = 5.0f;
@@ -11,7 +11,8 @@ public class HoverControlRay : Collectible
     public float backwardAcceleration = 20000.0f;
     public float turnStrength = 70.0f;
     public float maxSpeed = 7000.0f;
-    public float jumpForce = 5.0f;
+    
+
     public LayerMask groundLayers;
 
     public Rigidbody rb;
@@ -59,10 +60,12 @@ public class HoverControlRay : Collectible
         {
             transform.Rotate(Vector3.up, turnStrength * Time.deltaTime);
         }
-        if (Input.GetKeyDown(KeyCode.Space)&&_CanJump)
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
+
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        //}
+
     }
 
     void ShowVictoryScreen()
