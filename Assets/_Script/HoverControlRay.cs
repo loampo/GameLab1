@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class HoverControlRay : MonoBehaviour
+public class HoverControlRay : Collectible
 {
     public float hoverHeight = 5.0f;
     public float hoverForce = 5.0f;
@@ -58,7 +59,7 @@ public class HoverControlRay : MonoBehaviour
         {
             transform.Rotate(Vector3.up, turnStrength * Time.deltaTime);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)&&_CanJump)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
@@ -70,4 +71,13 @@ public class HoverControlRay : MonoBehaviour
         Time.timeScale = 0; //Pause the game
         //You can also set the victory message on the canvas
     }
+
+    //public void Pause()
+    //{
+    //    if (Input.GetKey(KeyCode.P))
+    //    {
+    //        Time.timeScale = 0;
+    //    }
+    //}
+
 }

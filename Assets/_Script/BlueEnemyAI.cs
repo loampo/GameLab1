@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class BlueEnemyAI : MonoBehaviour
 {
@@ -38,8 +39,8 @@ public class BlueEnemyAI : MonoBehaviour
 
         void ShowDefeatScreen()
     {
+        
         loseCanvas.SetActive(true);
-        Time.timeScale = 0; //Pause the game
-        //You can also set the defeat message on the canvas
+        ////You can also set the defeat message on the canvas
     }
 }
