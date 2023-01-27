@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class HoverControlRay : MonoBehaviour
 {
-    public float hoverHeight = 3.0f;
+    public float hoverHeight = 5.0f;
     public float hoverForce = 5.0f;
-    public float forwardAcceleration = 2000.0f;
-    public float backwardAcceleration = 2000.0f;
-    public float turnStrength = 50.0f;
-    public float maxSpeed = 100.0f;
+    public float forwardAcceleration = 20000.0f;
+    public float backwardAcceleration = 20000.0f;
+    public float turnStrength = 70.0f;
+    public float maxSpeed = 7000.0f;
     public float jumpForce = 5.0f;
     public LayerMask groundLayers;
 
