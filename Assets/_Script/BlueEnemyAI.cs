@@ -8,7 +8,7 @@ public class BlueEnemyAI : MonoBehaviour
     public List<Transform> blueFlags;
     public GameObject loseCanvas;
 
-    NavMeshAgent agent;
+    private NavMeshAgent agent;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
