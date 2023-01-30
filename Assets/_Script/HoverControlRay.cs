@@ -17,7 +17,9 @@ public class HoverControlRay : MonoBehaviour
 
     public Rigidbody rb;
     private Vector3 raycastDirection = Vector3.down;
+
     public GameObject winCanvas;
+    public List<Transform> redFlags;
 
     void Start()
     {
@@ -33,6 +35,7 @@ public class HoverControlRay : MonoBehaviour
             float proportionalHeight = (hoverHeight - hit.distance) / hoverHeight;
             Vector3 appliedHoverForce = Vector3.up * proportionalHeight * hoverForce;
             rb.AddForce(appliedHoverForce, ForceMode.Acceleration);
+            //Debug.Log("Distanza dal suolo: " + hit.distance); Per qualche motivo non funziona
         }
 
         // Calculate the forward/backward force
@@ -61,11 +64,21 @@ public class HoverControlRay : MonoBehaviour
             transform.Rotate(Vector3.up, turnStrength * Time.deltaTime);
         }
 
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        //}
+        if (redFlags.Count == 0)
+        {
+            ShowVictoryScreen();
+        }
+    }
 
+
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("RedFlag"))
+        {
+            redFlags.Remove(other.transform);
+            Destroy(other.gameObject);
+        }
     }
 
     void ShowVictoryScreen()

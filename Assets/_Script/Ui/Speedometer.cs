@@ -15,7 +15,7 @@ public class Speedometer : MonoBehaviour
     {
         float currentSpeed = rb.velocity.magnitude;
         float fillAmount = currentSpeed / GameObject.Find("Player").GetComponent<HoverControlRay>().maxSpeed;
-        Debug.Log("Fill Amount: " + fillAmount);
+        //Debug.Log("Fill Amount: " + fillAmount);
         speedometer.value = fillAmount;
     }
 }
