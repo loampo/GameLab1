@@ -19300,6 +19300,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4905902525880711221, guid: 7ed991bb04358744cbe1aa2b29e99186, type: 3}
   m_PrefabInstance: {fileID: 1802214422}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &777400168 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7551239213981810602, guid: e344ef998d0948642ae379044f4afa28, type: 3}
+  m_PrefabInstance: {fileID: 2146195978}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &781497761
 Mesh:
   m_ObjectHideFlags: 0
@@ -26528,6 +26533,9 @@ MonoBehaviour:
   backwardAcceleration: 20000
   turnStrength: 70
   maxSpeed: 500
+  menu: {fileID: 0}
+  enemy1: {fileID: 777400168}
+  enemy2: {fileID: 1911880558}
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -59397,8 +59405,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 656650678081657402, guid: 76dee7e1516e4114187c9e5bfff0d677, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 656650678081657403, guid: 76dee7e1516e4114187c9e5bfff0d677, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 1911880558}
     - target: {fileID: 656650678081657403, guid: 76dee7e1516e4114187c9e5bfff0d677, type: 3}
       propertyPath: nRedFlag
       value: 

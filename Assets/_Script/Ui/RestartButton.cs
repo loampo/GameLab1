@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class RestartButton : MonoBehaviour
 {
+
     public void Restart()
     {
         // code to reload the current scene
@@ -25,7 +26,6 @@ public class RestartButton : MonoBehaviour
         {
 
             SceneManager.LoadScene("game2");
-
 
         }
 
