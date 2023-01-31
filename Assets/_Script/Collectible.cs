@@ -34,6 +34,7 @@ public class Collectible : MonoBehaviour
         if (other.CompareTag("CollectibleJump"))
         {
             increaseNJump += 1f;
+            jumpSlider.value = 1;
             Destroy(other.gameObject);
             UpdateFundsDisplay();
         }
@@ -60,6 +61,7 @@ public class Collectible : MonoBehaviour
             {
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 increaseNJump -= 1f;
+                jumpSlider.value = 0;
                 UpdateFundsDisplay();
             }
         }
@@ -67,5 +69,6 @@ public class Collectible : MonoBehaviour
     private void UpdateFundsDisplay()
     {
         nJump.text = increaseNJump.ToString();
+        //jumpSlider.value = 1;
     }
 }
