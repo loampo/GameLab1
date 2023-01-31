@@ -10,9 +10,14 @@ public class RestartButton : MonoBehaviour
     {
         // code to reload the current scene
         {
-            Time.timeScale = 1;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            
+            Scene currentScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(currentScene.name);
+            
         }
 
     }
+
+    
+
 }

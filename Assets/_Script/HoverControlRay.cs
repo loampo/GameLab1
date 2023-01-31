@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HoverControlRay : MonoBehaviour
 {
@@ -10,16 +13,23 @@ public class HoverControlRay : MonoBehaviour
     public float backwardAcceleration = 20000.0f;
     public float turnStrength = 70.0f;
     public float maxSpeed = 7000.0f;
-    public float jumpForce = 5.0f;
+    
+
     public LayerMask groundLayers;
 
     public Rigidbody rb;
     private Vector3 raycastDirection = Vector3.down;
+
     public GameObject winCanvas;
+    public List<Transform> blueFlags;
+
+    
+    public TextMeshProUGUI nBlueFlag;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        nBlueFlag.text = blueFlags.Count.ToString();      
     }
 
     void Update()
@@ -31,6 +41,7 @@ public class HoverControlRay : MonoBehaviour
             float proportionalHeight = (hoverHeight - hit.distance) / hoverHeight;
             Vector3 appliedHoverForce = Vector3.up * proportionalHeight * hoverForce;
             rb.AddForce(appliedHoverForce, ForceMode.Acceleration);
+            //Debug.Log("Distanza dal suolo: " + hit.distance); Per qualche motivo non funziona
         }
 
         // Calculate the forward/backward force
@@ -58,9 +69,22 @@ public class HoverControlRay : MonoBehaviour
         {
             transform.Rotate(Vector3.up, turnStrength * Time.deltaTime);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        if (blueFlags.Count == 0)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            ShowVictoryScreen();
+        }
+    }
+
+
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("BlueFlag"))
+        {
+            blueFlags.Remove(other.transform);
+            nBlueFlag.text = blueFlags.Count.ToString();
+            Destroy(other.gameObject);
         }
     }
 
@@ -70,4 +94,13 @@ public class HoverControlRay : MonoBehaviour
         Time.timeScale = 0; //Pause the game
         //You can also set the victory message on the canvas
     }
+
+    //public void Pause()
+    //{
+    //    if (Input.GetKey(KeyCode.P))
+    //    {
+    //        Time.timeScale = 0;
+    //    }
+    //}
+
 }
