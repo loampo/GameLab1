@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Collectible : MonoBehaviour
 {
+
     public Slider jumpSlider;
     //private bool canJump = false;
     //public float jumpForce = 5.0f;
@@ -14,7 +15,9 @@ public class Collectible : MonoBehaviour
     public TextMeshProUGUI nJump;
     private float increaseNJump = 0f;
     public float jumpForce = 5.0f;
-    Rigidbody rb;
+    public Rigidbody rb;
+   
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -34,7 +37,6 @@ public class Collectible : MonoBehaviour
         if (other.CompareTag("CollectibleJump"))
         {
             increaseNJump += 1f;
-            jumpSlider.value = 1;
             Destroy(other.gameObject);
             UpdateFundsDisplay();
         }
@@ -42,6 +44,8 @@ public class Collectible : MonoBehaviour
 
     private void Update()
     {
+
+        
         //if (canJump && jumpTimer > 0)
         //{
         //    if (Input.GetKeyDown(KeyCode.Space))
@@ -55,8 +59,10 @@ public class Collectible : MonoBehaviour
         //{
         //    canJump = false;
         //}
+      
         if (increaseNJump > 0)
         {
+            jumpSlider.value = 1;
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
@@ -72,3 +78,4 @@ public class Collectible : MonoBehaviour
         //jumpSlider.value = 1;
     }
 }
+

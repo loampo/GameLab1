@@ -15,7 +15,9 @@ public class HoverControlRay : MonoBehaviour
     public float maxSpeed = 7000.0f;
     
 
+
     public LayerMask groundLayers;
+    
 
     public Rigidbody rb;
     private Vector3 raycastDirection = Vector3.down;
@@ -34,8 +36,9 @@ public class HoverControlRay : MonoBehaviour
 
     void Update()
     {
-        // Calculate the hover force
+
         RaycastHit hit;
+        // Calculate the hover force
         if (Physics.Raycast(transform.position, raycastDirection, out hit, hoverHeight, groundLayers))
         {
             float proportionalHeight = (hoverHeight - hit.distance) / hoverHeight;
@@ -76,7 +79,7 @@ public class HoverControlRay : MonoBehaviour
         }
     }
 
-
+    
 
     void OnTriggerEnter(Collider other)
     {
@@ -91,7 +94,7 @@ public class HoverControlRay : MonoBehaviour
     void ShowVictoryScreen()
     {
         winCanvas.SetActive(true);
-        Time.timeScale = 0; //Pause the game
+        //Time.timeScale = 0; //Pause the game
         //You can also set the victory message on the canvas
     }
 
