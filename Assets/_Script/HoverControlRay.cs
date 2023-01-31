@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class HoverControlRay : MonoBehaviour
@@ -19,11 +21,15 @@ public class HoverControlRay : MonoBehaviour
     private Vector3 raycastDirection = Vector3.down;
 
     public GameObject winCanvas;
-    public List<Transform> redFlags;
+    public List<Transform> blueFlags;
+
+    
+    public TextMeshProUGUI nBlueFlag;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        nBlueFlag.text = blueFlags.Count.ToString();      
     }
 
     void Update()
@@ -64,7 +70,7 @@ public class HoverControlRay : MonoBehaviour
             transform.Rotate(Vector3.up, turnStrength * Time.deltaTime);
         }
 
-        if (redFlags.Count == 0)
+        if (blueFlags.Count == 0)
         {
             ShowVictoryScreen();
         }
@@ -74,9 +80,10 @@ public class HoverControlRay : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("RedFlag"))
+        if (other.CompareTag("BlueFlag"))
         {
-            redFlags.Remove(other.transform);
+            blueFlags.Remove(other.transform);
+            nBlueFlag.text = blueFlags.Count.ToString();
             Destroy(other.gameObject);
         }
     }
