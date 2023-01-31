@@ -63,7 +63,7 @@ public class Collectible : MonoBehaviour
         if (increaseNJump > 0)
         {
             jumpSlider.value = 1;
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space)&& Mathf.Abs(rb.velocity.y) < 0.001f)
             {
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 increaseNJump -= 1f;
