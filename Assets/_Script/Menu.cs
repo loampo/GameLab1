@@ -6,14 +6,18 @@ public class Menu : MonoBehaviour
 {
     public GameObject options;
     public Canvas canvas;
-
+    public bool optionsSet=false;
+    public GameObject gameManager;
+    
     private void Start()
     {
+        DontDestroyOnLoad(gameObject);
         canvas = GetComponent<Canvas>();
     }
     public void PlayGame()
     {
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        
     }
 
     public void Quit()
@@ -31,6 +35,18 @@ public class Menu : MonoBehaviour
     {
         options.SetActive(false);
     }
+
+    public void OptionArrow()
+    {
+        optionsSet = true;
+
+    }
+
+    public void OptionWASD()
+    {
+        optionsSet = false;
+    }
+
 
 
 }

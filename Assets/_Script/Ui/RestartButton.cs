@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class RestartButton : MonoBehaviour
 {
+
     public void Restart()
     {
         // code to reload the current scene
@@ -13,11 +14,21 @@ public class RestartButton : MonoBehaviour
             
             Scene currentScene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(currentScene.name);
-            
+
+
         }
 
     }
 
-    
+    public void NextGame()
+    {
+        // code to reload the current scene
+        {
+
+            SceneManager.LoadScene("game2");
+
+        }
+
+    }
 
 }

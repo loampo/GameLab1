@@ -7,13 +7,13 @@ using UnityEngine.UI;
 //{
 //    private Collectible collectible;
 //    public Slider jumpSlider;
-    
+
 //    public void CanJumpSlider()
 //    {
 //        if (collectible._CanJump)
 //        {
 //            jumpSlider.value = 1;
 //        }
-        
+
 //    }
 //}
