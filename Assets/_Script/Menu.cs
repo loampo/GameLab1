@@ -7,7 +7,7 @@ public class Menu : MonoBehaviour
     public GameObject options;
     public Canvas canvas;
     public bool optionsSet=false;
-    public GameObject playerControl;
+    public GameObject gameManager;
     
     private void Start()
     {

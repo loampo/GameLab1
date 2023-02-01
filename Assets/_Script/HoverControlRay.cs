@@ -16,6 +16,8 @@ public class HoverControlRay : MonoBehaviour
     public Menu menu;
     public GameObject enemy1;
     public GameObject enemy2;
+
+    bool arrows;
     
 
 
@@ -34,13 +36,15 @@ public class HoverControlRay : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        nBlueFlag.text = blueFlags.Count.ToString();      
+        nBlueFlag.text = blueFlags.Count.ToString();
+        menu = FindObjectOfType<Menu>();
     }
 
     void Update()
     {
-        //if (menu.optionsSet==false)
-        //{
+        if (!menu.optionsSet)
+        {
+            arrows = false;
             RaycastHit hit;
             // Calculate the hover force
             if (Physics.Raycast(transform.position, raycastDirection, out hit, hoverHeight, groundLayers))
@@ -76,46 +80,47 @@ public class HoverControlRay : MonoBehaviour
             {
                 transform.Rotate(Vector3.up, turnStrength * Time.deltaTime);
             }
-        //}
-        //else if(menu.optionsSet==true)
-        //{
-        //    RaycastHit hit;
-        //    // Calculate the hover force
-        //    if (Physics.Raycast(transform.position, raycastDirection, out hit, hoverHeight, groundLayers))
-        //    {
-        //        float proportionalHeight = (hoverHeight - hit.distance) / hoverHeight;
-        //        Vector3 appliedHoverForce = Vector3.up * proportionalHeight * hoverForce;
-        //        rb.AddForce(appliedHoverForce, ForceMode.Acceleration);
-        //        //Debug.Log("Distanza dal suolo: " + hit.distance); Per qualche motivo non funziona
-        //    }
+        }
+        else 
+        {
+            arrows = true;
+            RaycastHit hit;
+            // Calculate the hover force
+            if (Physics.Raycast(transform.position, raycastDirection, out hit, hoverHeight, groundLayers))
+            {
+                float proportionalHeight = (hoverHeight - hit.distance) / hoverHeight;
+                Vector3 appliedHoverForce = Vector3.up * proportionalHeight * hoverForce;
+                rb.AddForce(appliedHoverForce, ForceMode.Acceleration);
+                //Debug.Log("Distanza dal suolo: " + hit.distance); Per qualche motivo non funziona
+            }
 
-        //    // Calculate the forward/backward force
-        //    float acceleration = 0.0f;
-        //    if (Input.GetKey(KeyCode.UpArrow))
-        //    {
-        //        acceleration = forwardAcceleration;
-        //    }
-        //    else if (Input.GetKey(KeyCode.DownArrow))
-        //    {
-        //        acceleration = -backwardAcceleration;
-        //    }
-        //    rb.AddForce(transform.forward * acceleration * Time.deltaTime);
+            // Calculate the forward/backward force
+            float acceleration = 0.0f;
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                acceleration = forwardAcceleration;
+            }
+            else if (Input.GetKey(KeyCode.DownArrow))
+            {
+                acceleration = -backwardAcceleration;
+            }
+            rb.AddForce(transform.forward * acceleration * Time.deltaTime);
 
-        //    // Limit the speed
-        //    if (rb.velocity.magnitude > maxSpeed)
-        //    {
-        //        rb.velocity = rb.velocity.normalized * maxSpeed;
-        //    }
-        //    if (Input.GetKey(KeyCode.LeftArrow))
-        //    {
-        //        transform.Rotate(Vector3.up, -turnStrength * Time.deltaTime);
-        //    }
-        //    else if (Input.GetKey(KeyCode.RightArrow))
-        //    {
-        //        transform.Rotate(Vector3.up, turnStrength * Time.deltaTime);
-        //    }
-        //}
-       
+            // Limit the speed
+            if (rb.velocity.magnitude > maxSpeed)
+            {
+                rb.velocity = rb.velocity.normalized * maxSpeed;
+            }
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                transform.Rotate(Vector3.up, -turnStrength * Time.deltaTime);
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                transform.Rotate(Vector3.up, turnStrength * Time.deltaTime);
+            }
+        }
+
 
         if (blueFlags.Count == 0)
         {

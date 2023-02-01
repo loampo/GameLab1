@@ -406,7 +406,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 830953875}
+      - m_Target: {fileID: 804577258}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
         m_MethodName: ReturnOptions
         m_Mode: 1
@@ -689,7 +689,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 830953875}
+      - m_Target: {fileID: 804577258}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
         m_MethodName: OptionArrow
         m_Mode: 1
@@ -1003,6 +1003,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 510637515}
   m_CullTransparentMesh: 1
+--- !u!1 &804577257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 804577259}
+  - component: {fileID: 804577258}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &804577258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804577257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9ddebed76da99c4b8e822773281f07a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  options: {fileID: 1155056677}
+  canvas: {fileID: 1419303286}
+  optionsSet: 0
+  gameManager: {fileID: 804577257}
+--- !u!4 &804577259
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804577257}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1074.0923, y: 580.35693, z: 451.09753}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &830953873
 GameObject:
   m_ObjectHideFlags: 0
@@ -1059,7 +1106,7 @@ MonoBehaviour:
   options: {fileID: 1155056677}
   canvas: {fileID: 1419303286}
   optionsSet: 0
-  playerControl: {fileID: 1155056677}
+  gameManager: {fileID: 0}
 --- !u!1 &912366651
 GameObject:
   m_ObjectHideFlags: 0
@@ -1765,7 +1812,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 830953875}
+      - m_Target: {fileID: 804577258}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
         m_MethodName: OptionWASD
         m_Mode: 1
