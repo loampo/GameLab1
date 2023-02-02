@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Collectible : MonoBehaviour
 {
-
+    public Transform direction;
     public Slider jumpSlider;
     public TextMeshProUGUI nJump;
     private float increaseNJump = 0f;
@@ -16,6 +16,9 @@ public class Collectible : MonoBehaviour
     public GameObject wall;
     private float increaseNWall = 0f;
     public TextMeshProUGUI nWall;
+    public bool shield=false;
+    private float increaseNShield = 0f;
+    public TextMeshProUGUI nShield;
 
 
     void Start()
@@ -23,6 +26,7 @@ public class Collectible : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         nJump.text = increaseNJump.ToString();
         nWall.text = increaseNWall.ToString();
+        nShield.text = increaseNWall.ToString();
     }
 
     void OnTriggerEnter(Collider other)
@@ -39,6 +43,19 @@ public class Collectible : MonoBehaviour
             Destroy(other.gameObject);
             UpdateFundsDisplayWall();
 
+        }
+        if (other.CompareTag("CollectibleShield"))
+        {
+            increaseNShield += 1f;
+            Destroy(other.gameObject);
+            UpdateFundsDisplayShield();
+        }
+        if (other.CompareTag("PlatformRotation")&&shield==false)
+        {
+            if (other.TryGetComponent<HoverControlRay>(out HoverControlRay hoverControlRay))
+            {
+                hoverControlRay.transform.rotation = direction.rotation;
+            }
         }
     }
 
@@ -65,6 +82,16 @@ public class Collectible : MonoBehaviour
                 UpdateFundsDisplayWall();
             }
         }
+
+        if (increaseNShield > 0)
+        {
+            if (Input.GetKey(KeyCode.Alpha3))
+            {
+                increaseNShield -= 1f;
+                StartCoroutine(Shield());
+                UpdateFundsDisplayShield();
+            }
+        }
             
     }
     private void UpdateFundsDisplayJump()
@@ -75,7 +102,10 @@ public class Collectible : MonoBehaviour
     {
         nWall.text = increaseNWall.ToString();
     }
-
+    private void UpdateFundsDisplayShield()
+    {
+        nShield.text = increaseNShield.ToString();
+    }
 
     public IEnumerator Wall()
     {
@@ -87,6 +117,15 @@ public class Collectible : MonoBehaviour
     }
 
 
+    public IEnumerator Shield()
+    {
+        shield = true;
+        yield return new WaitForSeconds(delay);
+        shield = false;
+    }
+
+    
+   
 
 }
 
