@@ -30,6 +30,9 @@ public class HoverControlRay : MonoBehaviour
     
     
     public TextMeshProUGUI nBlueFlag;
+    public TextMeshProUGUI nScore;
+    private float bluFlagScore;
+
 
     void Start()
     {
@@ -137,6 +140,8 @@ public class HoverControlRay : MonoBehaviour
         if (other.CompareTag("BlueFlag"))
         {
             blueFlags.Remove(other.transform);
+            bluFlagScore += 350f;
+            nScore.text = bluFlagScore.ToString();
             nBlueFlag.text = blueFlags.Count.ToString();
             Destroy(other.gameObject);
         }
