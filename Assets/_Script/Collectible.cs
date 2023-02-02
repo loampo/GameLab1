@@ -14,13 +14,17 @@ public class Collectible : MonoBehaviour
     public Rigidbody rb;
     private float delayInvicibility = 20f;
     private float delayWall = 10f;
+    private float delayEnemy = 10f;
     public GameObject wall;
     private float increaseNWall = 0f;
     public TextMeshProUGUI nWall;
     public bool shield=false;
     private float increaseNShield = 0f;
-    public TextMeshProUGUI nShield;
+    public TextMeshProUGUI nInvisibility;
+    private float increaseNInvisibility = 0f;
     public List<GameObject> platforms;
+    public GameObject greenEnemy;
+    
 
 
 
@@ -31,7 +35,7 @@ public class Collectible : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         nJump.text = increaseNJump.ToString();
         nWall.text = increaseNWall.ToString();
-        nShield.text = increaseNWall.ToString();
+        nInvisibility.text = increaseNWall.ToString();
     }
 
     void OnTriggerEnter(Collider other)
@@ -53,9 +57,13 @@ public class Collectible : MonoBehaviour
         {
             increaseNShield += 1f;
             Destroy(other.gameObject);
-            UpdateFundsDisplayShield();
         }
-        
+        if (other.CompareTag("CollectibleInvisibily"))
+        {
+            increaseNInvisibility += 1f;
+            Destroy(other.gameObject);
+            UpdateFundsDisplayInvisibility();
+        }
     }
 
     private void Update()
@@ -87,7 +95,6 @@ public class Collectible : MonoBehaviour
         {
                 increaseNShield -= 1f;
                 StartCoroutine(Shield());
-                UpdateFundsDisplayShield();
             
         }
         
@@ -95,7 +102,16 @@ public class Collectible : MonoBehaviour
         {
             StartCoroutine(SetActivePlatform());
         }
-        
+
+        if (increaseNInvisibility > 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                increaseNInvisibility -= 1f;
+                UpdateFundsDisplayInvisibility();
+                StartCoroutine(Invisibility());
+            }
+        }
 
 
     }
@@ -107,9 +123,9 @@ public class Collectible : MonoBehaviour
     {
         nWall.text = increaseNWall.ToString();
     }
-    private void UpdateFundsDisplayShield()
+    private void UpdateFundsDisplayInvisibility()
     {
-        nShield.text = increaseNShield.ToString();
+        nInvisibility.text = increaseNInvisibility.ToString();
     }
 
     private IEnumerator Wall()
@@ -144,6 +160,13 @@ public class Collectible : MonoBehaviour
             gameObject.SetActive(true);
         }
 
+    }
+
+    public IEnumerator Invisibility()
+    {
+        greenEnemy.SetActive(false);
+        yield return new WaitForSeconds(delayEnemy);
+        greenEnemy.SetActive(true);
     }
 
 

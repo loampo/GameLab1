@@ -16,8 +16,8 @@ public class HoverControlRay : MonoBehaviour
     public Menu menu;
 
     bool arrows;
-    
 
+    public GameObject nPause;
 
     public LayerMask groundLayers;
     
@@ -153,9 +153,11 @@ public class HoverControlRay : MonoBehaviour
     {
         if (Time.timeScale == 0)
         {
+            nPause.SetActive(false);
             Time.timeScale = 1;
         } else if (Time.timeScale == 1)
         {
+            nPause.SetActive(true);
             Time.timeScale = 0;
         }
     }
