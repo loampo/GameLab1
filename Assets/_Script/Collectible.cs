@@ -6,19 +6,24 @@ using UnityEngine.UI;
 
 public class Collectible : MonoBehaviour
 {
-    public Transform direction;
+    
     public Slider jumpSlider;
     public TextMeshProUGUI nJump;
     private float increaseNJump = 0f;
     public float jumpForce = 5.0f;
     public Rigidbody rb;
-    private float delay = 5f;
+    private float delayInvicibility = 20f;
+    private float delayWall = 10f;
     public GameObject wall;
     private float increaseNWall = 0f;
     public TextMeshProUGUI nWall;
     public bool shield=false;
     private float increaseNShield = 0f;
     public TextMeshProUGUI nShield;
+    public List<GameObject> platforms;
+
+
+
 
 
     void Start()
@@ -50,13 +55,7 @@ public class Collectible : MonoBehaviour
             Destroy(other.gameObject);
             UpdateFundsDisplayShield();
         }
-        if (other.CompareTag("PlatformRotation")&&shield==false)
-        {
-            if (other.TryGetComponent<HoverControlRay>(out HoverControlRay hoverControlRay))
-            {
-                hoverControlRay.transform.rotation = direction.rotation;
-            }
-        }
+        
     }
 
     private void Update()
@@ -86,14 +85,19 @@ public class Collectible : MonoBehaviour
 
         if (increaseNShield > 0)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
                 increaseNShield -= 1f;
                 StartCoroutine(Shield());
                 UpdateFundsDisplayShield();
-            }
-        }
             
+        }
+        
+        if (shield == true)
+        {
+            StartCoroutine(SetActivePlatform());
+        }
+        
+
+
     }
     private void UpdateFundsDisplayJump()
     {
@@ -108,11 +112,11 @@ public class Collectible : MonoBehaviour
         nShield.text = increaseNShield.ToString();
     }
 
-    public IEnumerator Wall()
+    private IEnumerator Wall()
     {
         
         wall.SetActive(true);
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(delayWall);
         wall.SetActive(false);
         
     }
@@ -121,12 +125,27 @@ public class Collectible : MonoBehaviour
     public IEnumerator Shield()
     {
         shield = true;
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(delayInvicibility);
         shield = false;
     }
 
-    
-   
+    public IEnumerator SetActivePlatform()
+    {
+        for (int i =0; i<platforms.Count;i++)
+        {
+            GameObject gameObject = platforms[i];
+            gameObject.SetActive(false);
+
+        }
+        yield return new WaitForSeconds(delayInvicibility);
+        for (int i = 0; i < platforms.Count; i++)
+        {
+            GameObject gameObject = platforms[i];
+            gameObject.SetActive(true);
+        }
+
+    }
+
 
 }
 
