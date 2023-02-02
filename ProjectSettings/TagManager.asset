@@ -9,6 +9,9 @@ TagManager:
   - RedFlag
   - Stairs
   - CollectibleJump
+  - CollectibleWall
+  - PlatformRotation
+  - CollectibleShield
   layers:
   - Default
   - TransparentFX
