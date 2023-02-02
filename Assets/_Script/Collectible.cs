@@ -75,17 +75,18 @@ public class Collectible : MonoBehaviour
 
         if (increaseNWall > 0)
         {
-            if (Input.GetKey(KeyCode.Alpha2))
+            if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 increaseNWall -= 1f;
-                StartCoroutine(Wall());
                 UpdateFundsDisplayWall();
+                StartCoroutine(Wall());
+                
             }
         }
 
         if (increaseNShield > 0)
         {
-            if (Input.GetKey(KeyCode.Alpha3))
+            if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 increaseNShield -= 1f;
                 StartCoroutine(Shield());
