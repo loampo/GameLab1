@@ -9,7 +9,6 @@ public class BlueEnemyAI : MonoBehaviour
 {
     public List<Transform> redFlags;
     public GameObject loseCanvas;
-    public GameObject enemy;
 
     public TextMeshProUGUI nRedFlag;
 
@@ -43,12 +42,10 @@ public class BlueEnemyAI : MonoBehaviour
         }
     }
 
-        void ShowDefeatScreen()
+    public void ShowDefeatScreen()
     {
         
         loseCanvas.SetActive(true);
-        //Time.timeScale = 0;
-        enemy.SetActive(false);
-        ////You can also set the defeat message on the canvas
+        Time.timeScale = 0;
     }
 }

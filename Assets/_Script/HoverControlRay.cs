@@ -14,8 +14,6 @@ public class HoverControlRay : MonoBehaviour
     public float turnStrength = 70.0f;
     public float maxSpeed = 7000.0f;
     public Menu menu;
-    public GameObject enemy1;
-    public GameObject enemy2;
 
     bool arrows;
     
@@ -126,6 +124,10 @@ public class HoverControlRay : MonoBehaviour
         {
             ShowVictoryScreen();
         }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Pause();
+        }
     }
 
     
@@ -144,19 +146,18 @@ public class HoverControlRay : MonoBehaviour
     {
 
         winCanvas.SetActive(true);
-        enemy1.SetActive(false);
-        enemy2.SetActive(false);
+        Time.timeScale = 0;
+    }
 
-    //Time.timeScale = 0; //Pause the game
-    //You can also set the victory message on the canvas
-}
-
-    //public void Pause()
-    //{
-    //    if (Input.GetKey(KeyCode.P))
-    //    {
-    //        Time.timeScale = 0;
-    //    }
-    //}
+    public void Pause()
+    {
+        if (Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+        } else if (Time.timeScale == 1)
+        {
+            Time.timeScale = 0;
+        }
+    }
 
 }
