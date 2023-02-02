@@ -9,6 +9,7 @@ TagManager:
   - RedFlag
   - Stairs
   - CollectibleJump
+  - CollectibleWall
   layers:
   - Default
   - TransparentFX
