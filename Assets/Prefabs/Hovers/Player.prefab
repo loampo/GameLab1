@@ -595,6 +595,7 @@ MonoBehaviour:
   blueFlags:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   nBlueFlag: {fileID: 0}
   nScore: {fileID: 0}
 --- !u!114 &419559301837332157

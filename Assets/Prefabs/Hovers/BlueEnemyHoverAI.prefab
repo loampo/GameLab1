@@ -1307,6 +1307,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   loseCanvas: {fileID: 0}
   nRedFlag: {fileID: 0}
 --- !u!65 &8188628927076996864
