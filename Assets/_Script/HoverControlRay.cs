@@ -8,12 +8,12 @@ using JetBrains.Annotations;
 
 public class HoverControlRay : MonoBehaviour
 {
-    public float SemaforoSpeed = 6.0f;
-    public float SemaforoAcceleration = 400.0f;
+    public float SemaforoSpeed = 5.0f;
+    public float SemaforoAcceleration = 500.0f;
 
 
-    public float hoverHeight = 5.0f;
-    public float hoverForce = 5.0f;
+    public float hoverHeight = 1.0f;
+    public float hoverForce = 1.0f;
     public float forwardAcceleration = 1500.0f;
     public float backwardAcceleration = 1500.0f;
     public float turnStrength = 70.0f;

@@ -25,7 +25,7 @@ public class Collectible : MonoBehaviour
 
     public TextMeshProUGUI nJump;
     private float increaseNJump = 0f;
-    public float jumpForce = 5.0f;
+    public float jumpForce = 10.0f;
     public Rigidbody rb;
     private float delayWall = 10f;
     public GameObject wallPrefab;
