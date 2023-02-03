@@ -6,7 +6,11 @@ using UnityEngine.UI;
 
 public class Collectible : MonoBehaviour
 {
+<<<<<<< HEAD
     //Only fo Slider
+=======
+    
+>>>>>>> ee10bd697d1fdada749707134084a6560a31fb2b
     public Slider jumpSlider;
     public Slider InvisiSlider;
     public Slider ShieldSlider;
@@ -27,18 +31,29 @@ public class Collectible : MonoBehaviour
     private float increaseNJump = 0f;
     public float jumpForce = 5.0f;
     public Rigidbody rb;
+<<<<<<< HEAD
     private float delayWall = 10f;
     public GameObject wallPrefab;
+=======
+    private float delayInvicibility = 20f;
+    private float delayWall = 10f;
+    public GameObject wall;
+>>>>>>> ee10bd697d1fdada749707134084a6560a31fb2b
     private float increaseNWall = 0f;
     public TextMeshProUGUI nWall;
     public bool shield=false;
     private float increaseNShield = 0f;
+<<<<<<< HEAD
     public TextMeshProUGUI nInvisibility;
     private float increaseNInvisibility = 0f;
     public List<GameObject> platforms;
     public GameObject greenEnemy;
     private HoverControlRay playermovement;
     
+=======
+    public TextMeshProUGUI nShield;
+    public List<GameObject> platforms;
+>>>>>>> ee10bd697d1fdada749707134084a6560a31fb2b
 
 
 
@@ -89,6 +104,7 @@ public class Collectible : MonoBehaviour
             ShieldSlider.maxValue = ShieldDuration;
             ShieldSlider.value = ShieldTimer;
         }
+<<<<<<< HEAD
         if (other.CompareTag("CollectibleInvisibily"))
         {
             increaseNInvisibility += 1f;
@@ -112,6 +128,9 @@ public class Collectible : MonoBehaviour
             SemGreenSlider.value = SemGreenTimer;
             StartCoroutine(playermovement.SemaforoGreen());
         }
+=======
+        
+>>>>>>> ee10bd697d1fdada749707134084a6560a31fb2b
     }
 
     private void Update()
@@ -134,12 +153,18 @@ public class Collectible : MonoBehaviour
             {
                 increaseNWall -= 1f;
                 UpdateFundsDisplayWall();
+<<<<<<< HEAD
                 StartCoroutine (Wall());                
+=======
+                StartCoroutine(Wall());
+                
+>>>>>>> ee10bd697d1fdada749707134084a6560a31fb2b
             }
         }
 
         if (increaseNShield > 0)
         {
+<<<<<<< HEAD
             increaseNShield -= 1f;
             StartCoroutine(Shield());
         }
@@ -149,10 +174,19 @@ public class Collectible : MonoBehaviour
             ShieldSlider.value = ShieldTimer;
         }
 
+=======
+                increaseNShield -= 1f;
+                StartCoroutine(Shield());
+                UpdateFundsDisplayShield();
+            
+        }
+        
+>>>>>>> ee10bd697d1fdada749707134084a6560a31fb2b
         if (shield == true)
         {
             StartCoroutine(SetActivePlatform());
         }
+<<<<<<< HEAD
         //Ho collegato InvisiTimer alla coroutine così da avere un if e non avere problemi se premi più volte il tasto
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
@@ -174,6 +208,11 @@ public class Collectible : MonoBehaviour
             SemGreenTimer -= Time.deltaTime;
             SemGreenSlider.value = SemGreenTimer;
         }
+=======
+        
+
+
+>>>>>>> ee10bd697d1fdada749707134084a6560a31fb2b
     }
     //Tutti gli UpdateFunds servono per aggiornare i vari testi in base alle quantità trasformate in stringhe per poterli riportare senza errori
     private void UpdateFundsDisplayJump()
@@ -189,6 +228,7 @@ public class Collectible : MonoBehaviour
         nInvisibility.text = increaseNInvisibility.ToString();
     }
 
+<<<<<<< HEAD
 
     /// <summary>
     /// Prendo un prefab e lo piazzo nel mondo secondo le coordina descritte in base alla posizione del giocatore con anche un autodistruzione
@@ -202,13 +242,26 @@ public class Collectible : MonoBehaviour
         GameObject newWall = Instantiate(wallPrefab, wallPosition, transform.rotation);
         yield return new WaitForSeconds(delayWall);
         Destroy(newWall);
+=======
+    private IEnumerator Wall()
+    {
+        
+        wall.SetActive(true);
+        yield return new WaitForSeconds(delayWall);
+        wall.SetActive(false);
+        
+>>>>>>> ee10bd697d1fdada749707134084a6560a31fb2b
     }
 
 
     public IEnumerator Shield()
     {
         shield = true;
+<<<<<<< HEAD
         yield return new WaitForSeconds(ShieldDuration);
+=======
+        yield return new WaitForSeconds(delayInvicibility);
+>>>>>>> ee10bd697d1fdada749707134084a6560a31fb2b
         shield = false;
     }
     /// <summary>
@@ -249,6 +302,26 @@ public class Collectible : MonoBehaviour
 
     }
 
+<<<<<<< HEAD
+=======
+    public IEnumerator SetActivePlatform()
+    {
+        for (int i =0; i<platforms.Count;i++)
+        {
+            GameObject gameObject = platforms[i];
+            gameObject.SetActive(false);
+
+        }
+        yield return new WaitForSeconds(delayInvicibility);
+        for (int i = 0; i < platforms.Count; i++)
+        {
+            GameObject gameObject = platforms[i];
+            gameObject.SetActive(true);
+        }
+
+    }
+
+>>>>>>> ee10bd697d1fdada749707134084a6560a31fb2b
 
 }
 
