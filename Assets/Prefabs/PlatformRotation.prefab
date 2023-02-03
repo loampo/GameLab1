@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5210644968191660811}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: direction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 5210644968459526923}
   - component: {fileID: 5210644968459526922}
   - component: {fileID: 5210644968459526927}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlatformRotation
   m_TagString: PlatformRotation
   m_Icon: {fileID: 0}
