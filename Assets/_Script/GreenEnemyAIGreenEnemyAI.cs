@@ -29,7 +29,7 @@ public class GreenEnemyAIGreenEnemyAI : MonoBehaviour
     void Update()
     {
         float distanceToPlayer = Vector3.Distance(Player.position, transform.position);
-        if (distanceToPlayer < 5f)
+        if (distanceToPlayer < 15f)
         {
             agent.destination = Player.position;
         }

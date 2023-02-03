@@ -449,7 +449,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419559301447611632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.312, z: 2.456}
+  m_LocalPosition: {x: 0, y: 1.3, z: 2.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 419559300870935148}
@@ -577,10 +577,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bf092390f305c14e920fb9fa87910bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SemaforoSpeed: 3
-  SemaforoAcceleration: 300
-  hoverHeight: 2
-  hoverForce: 2
+  SemaforoSpeed: 5
+  SemaforoAcceleration: 500
+  hoverHeight: 1
+  hoverForce: 1
   forwardAcceleration: 1500
   backwardAcceleration: 1500
   turnStrength: 70
@@ -593,7 +593,6 @@ MonoBehaviour:
   rb: {fileID: 419559301837332155}
   winCanvas: {fileID: 0}
   blueFlags:
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   nBlueFlag: {fileID: 0}
@@ -638,8 +637,10 @@ MonoBehaviour:
   jumpSlider: {fileID: 0}
   InvisiSlider: {fileID: 0}
   ShieldSlider: {fileID: 0}
+  SemGreenSlider: {fileID: 0}
+  SemRedSlider: {fileID: 0}
   nJump: {fileID: 0}
-  jumpForce: 8
+  jumpForce: 10
   rb: {fileID: 419559301837332155}
   wallPrefab: {fileID: 5766999647654215485, guid: 0d268828a7e36dc498338799120703ee, type: 3}
   nWall: {fileID: 0}
@@ -662,8 +663,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.1497824, y: 1.2771299, z: 4.560423}
-  m_Center: {x: 0.0059849024, y: 0.68340504, z: 0.70391893}
+  m_Size: {x: 2.2430267, y: 1.2771299, z: 4.723098}
+  m_Center: {x: -0.0013427734, y: 0.68340504, z: 0.78525615}
 --- !u!1 &419559302200085819
 GameObject:
   m_ObjectHideFlags: 0
