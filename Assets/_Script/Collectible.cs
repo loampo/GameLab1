@@ -6,16 +6,22 @@ using UnityEngine.UI;
 
 public class Collectible : MonoBehaviour
 {
-    
+    //Only fo Slider
     public Slider jumpSlider;
+    public Slider InvisiSlider;
+    public Slider ShieldSlider;
+    //public Slider SemaforoSlider; //Semaforo fa crashare
+    private float ShieldTimer;
+    private float ShieldDuration = 20f;
+    private float delayInvicibility = 20f; //Shield duration
+
     public TextMeshProUGUI nJump;
     private float increaseNJump = 0f;
     public float jumpForce = 5.0f;
     public Rigidbody rb;
-    private float delayInvicibility = 20f;
     private float delayWall = 10f;
     private float delayEnemy = 10f;
-    public GameObject wall;
+    public GameObject wallPrefab;
     private float increaseNWall = 0f;
     public TextMeshProUGUI nWall;
     public bool shield=false;
@@ -24,6 +30,7 @@ public class Collectible : MonoBehaviour
     private float increaseNInvisibility = 0f;
     public List<GameObject> platforms;
     public GameObject greenEnemy;
+    private HoverControlRay playermovement;
     
 
 
@@ -36,6 +43,12 @@ public class Collectible : MonoBehaviour
         nJump.text = increaseNJump.ToString();
         nWall.text = increaseNWall.ToString();
         nInvisibility.text = increaseNWall.ToString();
+        playermovement = GetComponent<HoverControlRay>();
+
+        //Dichiaro vari slider
+        ShieldTimer = 0f;
+        ShieldSlider.value = ShieldTimer;
+
     }
 
     void OnTriggerEnter(Collider other)
@@ -57,12 +70,26 @@ public class Collectible : MonoBehaviour
         {
             increaseNShield += 1f;
             Destroy(other.gameObject);
+            ShieldTimer = ShieldDuration;
+            ShieldSlider.maxValue = ShieldDuration;
+            ShieldSlider.value = ShieldTimer;
         }
         if (other.CompareTag("CollectibleInvisibily"))
         {
             increaseNInvisibility += 1f;
             Destroy(other.gameObject);
             UpdateFundsDisplayInvisibility();
+        }
+        
+        if (other.CompareTag("CollectibleSemRed"))
+        { 
+            Destroy(other.gameObject);
+            StartCoroutine(playermovement.SemaforoRed());
+        }
+        if (other.CompareTag("CollectibleSemGreen"))
+        {
+            Destroy(other.gameObject);
+            StartCoroutine(playermovement.SemaforoGreen());
         }
     }
 
@@ -86,18 +113,23 @@ public class Collectible : MonoBehaviour
             {
                 increaseNWall -= 1f;
                 UpdateFundsDisplayWall();
-                StartCoroutine(Wall());
-                
+                StartCoroutine (Wall());                
             }
         }
 
         if (increaseNShield > 0)
         {
-                increaseNShield -= 1f;
-                StartCoroutine(Shield());
+            increaseNShield -= 1f;
+            StartCoroutine(Shield());
             
+
         }
-        
+        if (ShieldTimer > 0)
+        {
+            ShieldTimer -= Time.deltaTime;
+            ShieldSlider.value = ShieldTimer;
+        }
+
         if (shield == true)
         {
             StartCoroutine(SetActivePlatform());
@@ -105,14 +137,24 @@ public class Collectible : MonoBehaviour
 
         if (increaseNInvisibility > 0)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha3))
+            if (Input.GetKey(KeyCode.Alpha3))
             {
                 increaseNInvisibility -= 1f;
                 UpdateFundsDisplayInvisibility();
                 StartCoroutine(Invisibility());
             }
         }
-
+        //Semaforo fa crashare
+        //if (increaseNSemRed > 0)
+        //{
+        //    increaseNSemRed -= 1f;
+        //    StartCoroutine(playercontrol.SemaforoRed());
+        //}
+        //if (increaseNSemGreen > 0)
+        //{
+        //    increaseNSemGreen -= 1f;
+        //    StartCoroutine(playercontrol.SemaforoGreen());
+        //}
 
     }
     private void UpdateFundsDisplayJump()
@@ -128,13 +170,15 @@ public class Collectible : MonoBehaviour
         nInvisibility.text = increaseNInvisibility.ToString();
     }
 
+
+
     private IEnumerator Wall()
     {
-        
-        wall.SetActive(true);
+
+        Vector3 wallPosition = transform.position - transform.forward * 2.0f;
+        GameObject newWall = Instantiate(wallPrefab, wallPosition, Quaternion.identity);
         yield return new WaitForSeconds(delayWall);
-        wall.SetActive(false);
-        
+        Destroy(newWall);
     }
 
 
@@ -164,6 +208,7 @@ public class Collectible : MonoBehaviour
 
     public IEnumerator Invisibility()
     {
+        
         greenEnemy.SetActive(false);
         yield return new WaitForSeconds(delayEnemy);
         greenEnemy.SetActive(true);

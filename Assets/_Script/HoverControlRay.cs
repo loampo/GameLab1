@@ -4,15 +4,20 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using JetBrains.Annotations;
 
 public class HoverControlRay : MonoBehaviour
 {
+    public float SemaforoSpeed = 5.0f;
+    public float SemaforoAcceleration = 400.0f;
+
+
     public float hoverHeight = 5.0f;
     public float hoverForce = 5.0f;
-    public float forwardAcceleration = 20000.0f;
-    public float backwardAcceleration = 20000.0f;
+    public float forwardAcceleration = 1500.0f;
+    public float backwardAcceleration = 1500.0f;
     public float turnStrength = 70.0f;
-    public float maxSpeed = 7000.0f;
+    public float maxSpeed = 13.0f;
     public Menu menu;
 
     bool arrows;
@@ -32,7 +37,7 @@ public class HoverControlRay : MonoBehaviour
     public TextMeshProUGUI nBlueFlag;
     public TextMeshProUGUI nScore;
     private float bluFlagScore;
-
+    Collectible collectible;
 
     void Start()
     {
@@ -167,4 +172,24 @@ public class HoverControlRay : MonoBehaviour
         }
     }
 
+    public IEnumerator SemaforoGreen()
+    {
+        maxSpeed += SemaforoSpeed;
+        forwardAcceleration += SemaforoAcceleration;
+        backwardAcceleration += SemaforoAcceleration;
+        yield return new WaitForSeconds(10f);
+        maxSpeed -= SemaforoSpeed;
+        forwardAcceleration -= SemaforoAcceleration;
+        backwardAcceleration -= SemaforoAcceleration;
+    }
+    public IEnumerator SemaforoRed()
+    {
+        maxSpeed -= SemaforoSpeed;
+        forwardAcceleration -= SemaforoAcceleration;
+        backwardAcceleration -= SemaforoAcceleration;
+        yield return new WaitForSeconds(10f);
+        maxSpeed += SemaforoSpeed;
+        forwardAcceleration += SemaforoAcceleration;
+        backwardAcceleration += SemaforoAcceleration;
+    }
 }
