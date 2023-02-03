@@ -12,6 +12,9 @@ TagManager:
   - CollectibleWall
   - PlatformRotation
   - CollectibleShield
+  - CollectibleInvisibily
+  - CollectibleSemGreen
+  - CollectibleSemRed
   layers:
   - Default
   - TransparentFX

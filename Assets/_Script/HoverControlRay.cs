@@ -4,22 +4,25 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using JetBrains.Annotations;
 
 public class HoverControlRay : MonoBehaviour
 {
+    public float SemaforoSpeed = 6.0f;
+    public float SemaforoAcceleration = 400.0f;
+
+
     public float hoverHeight = 5.0f;
     public float hoverForce = 5.0f;
-    public float forwardAcceleration = 20000.0f;
-    public float backwardAcceleration = 20000.0f;
+    public float forwardAcceleration = 1500.0f;
+    public float backwardAcceleration = 1500.0f;
     public float turnStrength = 70.0f;
-    public float maxSpeed = 7000.0f;
+    public float maxSpeed = 13.0f;
     public Menu menu;
-    public GameObject enemy1;
-    public GameObject enemy2;
 
     bool arrows;
-    
 
+    public GameObject nPause;
 
     public LayerMask groundLayers;
     
@@ -32,6 +35,9 @@ public class HoverControlRay : MonoBehaviour
     
     
     public TextMeshProUGUI nBlueFlag;
+    public TextMeshProUGUI nScore;
+    private float bluFlagScore;
+    Collectible collectible;
 
     void Start()
     {
@@ -47,6 +53,7 @@ public class HoverControlRay : MonoBehaviour
             arrows = false;
             RaycastHit hit;
             // Calculate the hover force
+            //Raycast utilizzato per prendere la posizione in maniera più precisa
             if (Physics.Raycast(transform.position, raycastDirection, out hit, hoverHeight, groundLayers))
             {
                 float proportionalHeight = (hoverHeight - hit.distance) / hoverHeight;
@@ -86,6 +93,7 @@ public class HoverControlRay : MonoBehaviour
             arrows = true;
             RaycastHit hit;
             // Calculate the hover force
+            //Raycast utilizzato per prendere la posizione in maniera più precisa
             if (Physics.Raycast(transform.position, raycastDirection, out hit, hoverHeight, groundLayers))
             {
                 float proportionalHeight = (hoverHeight - hit.distance) / hoverHeight;
@@ -126,6 +134,10 @@ public class HoverControlRay : MonoBehaviour
         {
             ShowVictoryScreen();
         }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Pause();
+        }
     }
 
     
@@ -135,6 +147,8 @@ public class HoverControlRay : MonoBehaviour
         if (other.CompareTag("BlueFlag"))
         {
             blueFlags.Remove(other.transform);
+            bluFlagScore += 350f;
+            nScore.text = bluFlagScore.ToString();
             nBlueFlag.text = blueFlags.Count.ToString();
             Destroy(other.gameObject);
         }
@@ -144,19 +158,47 @@ public class HoverControlRay : MonoBehaviour
     {
 
         winCanvas.SetActive(true);
-        enemy1.SetActive(false);
-        enemy2.SetActive(false);
+        Time.timeScale = 0;
+    }
 
-    //Time.timeScale = 0; //Pause the game
-    //You can also set the victory message on the canvas
-}
-
-    //public void Pause()
-    //{
-    //    if (Input.GetKey(KeyCode.P))
-    //    {
-    //        Time.timeScale = 0;
-    //    }
-    //}
-
+    public void Pause()
+    {
+        if (Time.timeScale == 0)
+        {
+            nPause.SetActive(false);
+            Time.timeScale = 1;
+        } else if (Time.timeScale == 1)
+        {
+            nPause.SetActive(true);
+            Time.timeScale = 0;
+        }
+    }
+    /// <summary>
+    /// Incrementa temporaneamente sia accelerazione che velocità massima
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator SemaforoGreen()
+    {
+        maxSpeed += SemaforoSpeed;
+        forwardAcceleration += SemaforoAcceleration;
+        backwardAcceleration += SemaforoAcceleration;
+        yield return new WaitForSeconds(10f);
+        maxSpeed -= SemaforoSpeed;
+        forwardAcceleration -= SemaforoAcceleration;
+        backwardAcceleration -= SemaforoAcceleration;
+    }
+    /// <summary>
+    /// Decrementa temporaneamente sia accelerazione che velocità massima
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator SemaforoRed()
+    {
+        maxSpeed -= SemaforoSpeed;
+        forwardAcceleration -= SemaforoAcceleration;
+        backwardAcceleration -= SemaforoAcceleration;
+        yield return new WaitForSeconds(10f);
+        maxSpeed += SemaforoSpeed;
+        forwardAcceleration += SemaforoAcceleration;
+        backwardAcceleration += SemaforoAcceleration;
+    }
 }

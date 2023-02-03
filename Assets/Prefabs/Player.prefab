@@ -190,7 +190,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419559300766360462}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.123, y: 1.0068, z: -2.03}
+  m_LocalPosition: {x: -0.123, y: 1.0068, z: -2.9}
   m_LocalScale: {x: 3.0610776, y: 1.713608, z: 0.124}
   m_Children: []
   m_Father: {fileID: 419559301837332150}
@@ -449,7 +449,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419559301447611632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.4, z: 2.31}
+  m_LocalPosition: {x: 0, y: 1.312, z: 2.456}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 419559300870935148}
@@ -519,7 +519,6 @@ GameObject:
   - component: {fileID: 419559301837332150}
   - component: {fileID: 419559301837332155}
   - component: {fileID: 419559301837332153}
-  - component: {fileID: 419559301837332154}
   - component: {fileID: 419559301837332157}
   - component: {fileID: 419559301837332152}
   - component: {fileID: 419559301837332156}
@@ -578,6 +577,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bf092390f305c14e920fb9fa87910bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SemaforoSpeed: 3
+  SemaforoAcceleration: 300
   hoverHeight: 2
   hoverForce: 2
   forwardAcceleration: 1500
@@ -585,8 +586,7 @@ MonoBehaviour:
   turnStrength: 70
   maxSpeed: 13
   menu: {fileID: 0}
-  enemy1: {fileID: 0}
-  enemy2: {fileID: 0}
+  nPause: {fileID: 0}
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -595,20 +595,9 @@ MonoBehaviour:
   blueFlags:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   nBlueFlag: {fileID: 0}
---- !u!114 &419559301837332154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 419559301837332151}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68e63e8bb4949934d8223107743e014c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bounceForce: 10
+  nScore: {fileID: 0}
 --- !u!114 &419559301837332157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -647,17 +636,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpSlider: {fileID: 0}
+  InvisiSlider: {fileID: 0}
+  ShieldSlider: {fileID: 0}
   nJump: {fileID: 0}
   jumpForce: 8
   rb: {fileID: 419559301837332155}
-  wall: {fileID: 419559300766360462}
+  wallPrefab: {fileID: 5766999647654215485, guid: 0d268828a7e36dc498338799120703ee, type: 3}
   nWall: {fileID: 0}
   shield: 0
-  nShield: {fileID: 0}
-  platform: {fileID: 0}
-  platform1: {fileID: 0}
-  platform2: {fileID: 0}
-  platform3: {fileID: 0}
+  nInvisibility: {fileID: 0}
+  platforms:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  greenEnemy: {fileID: 0}
 --- !u!65 &419559301837332159
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -669,8 +662,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.1497824, y: 1.2771299, z: 4.475424}
-  m_Center: {x: 0.0059849024, y: 0.68340504, z: 0.6614194}
+  m_Size: {x: 2.1497824, y: 1.2771299, z: 4.560423}
+  m_Center: {x: 0.0059849024, y: 0.68340504, z: 0.70391893}
 --- !u!1 &419559302200085819
 GameObject:
   m_ObjectHideFlags: 0
