@@ -31,4 +31,17 @@ public class RestartButton : MonoBehaviour
 
     }
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+
+    public void RestartMap2()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
+    }
+
+
 }
