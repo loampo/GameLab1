@@ -134,7 +134,7 @@ public class HoverControlRay : MonoBehaviour
         {
             ShowVictoryScreen();
         }
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.F3))
         {
             Pause();
         }
