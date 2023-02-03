@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 
 public class HoverControlRay : MonoBehaviour
 {
-    public float SemaforoSpeed = 5.0f;
+    public float SemaforoSpeed = 6.0f;
     public float SemaforoAcceleration = 400.0f;
 
 
@@ -53,6 +53,7 @@ public class HoverControlRay : MonoBehaviour
             arrows = false;
             RaycastHit hit;
             // Calculate the hover force
+            //Raycast utilizzato per prendere la posizione in maniera più precisa
             if (Physics.Raycast(transform.position, raycastDirection, out hit, hoverHeight, groundLayers))
             {
                 float proportionalHeight = (hoverHeight - hit.distance) / hoverHeight;
@@ -92,6 +93,7 @@ public class HoverControlRay : MonoBehaviour
             arrows = true;
             RaycastHit hit;
             // Calculate the hover force
+            //Raycast utilizzato per prendere la posizione in maniera più precisa
             if (Physics.Raycast(transform.position, raycastDirection, out hit, hoverHeight, groundLayers))
             {
                 float proportionalHeight = (hoverHeight - hit.distance) / hoverHeight;
@@ -171,7 +173,10 @@ public class HoverControlRay : MonoBehaviour
             Time.timeScale = 0;
         }
     }
-
+    /// <summary>
+    /// Incrementa temporaneamente sia accelerazione che velocità massima
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator SemaforoGreen()
     {
         maxSpeed += SemaforoSpeed;
@@ -182,6 +187,10 @@ public class HoverControlRay : MonoBehaviour
         forwardAcceleration -= SemaforoAcceleration;
         backwardAcceleration -= SemaforoAcceleration;
     }
+    /// <summary>
+    /// Decrementa temporaneamente sia accelerazione che velocità massima
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator SemaforoRed()
     {
         maxSpeed -= SemaforoSpeed;

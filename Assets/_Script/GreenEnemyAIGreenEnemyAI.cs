@@ -17,6 +17,7 @@ public class GreenEnemyAIGreenEnemyAI : MonoBehaviour
         InitializePatrolRoute();
         MoveToNextPatrolLocation();
     }
+ 
     void InitializePatrolRoute()
     {
         foreach (Transform child in PatrolRoute)
@@ -24,10 +25,11 @@ public class GreenEnemyAIGreenEnemyAI : MonoBehaviour
             Locations.Add(child);
         }
     }
+    //Dedicato a interrompere il suo Patrol per venire a disturbare il player finchè in zona
     void Update()
     {
         float distanceToPlayer = Vector3.Distance(Player.position, transform.position);
-        if (distanceToPlayer < 500f)
+        if (distanceToPlayer < 5f)
         {
             agent.destination = Player.position;
         }

@@ -10,17 +10,24 @@ public class Collectible : MonoBehaviour
     public Slider jumpSlider;
     public Slider InvisiSlider;
     public Slider ShieldSlider;
-    //public Slider SemaforoSlider; //Semaforo fa crashare
+    public Slider SemGreenSlider;
+    public Slider SemRedSlider;
+    private float InvisiTimer;
+    private float InvisiDuration = 10f;
     private float ShieldTimer;
     private float ShieldDuration = 20f;
-    private float delayInvicibility = 20f; //Shield duration
+    private float SemGreenTimer;
+    private float SemRedTimer;
+    private float SemDuration = 10f;
+    private bool isInvisibilityActive = false;
+    //private float delayInvicibility = 20f; Ex Shield duration
+    //private float delayEnemy = 10f; ExInvisiduration
 
     public TextMeshProUGUI nJump;
     private float increaseNJump = 0f;
     public float jumpForce = 5.0f;
     public Rigidbody rb;
     private float delayWall = 10f;
-    private float delayEnemy = 10f;
     public GameObject wallPrefab;
     private float increaseNWall = 0f;
     public TextMeshProUGUI nWall;
@@ -43,14 +50,22 @@ public class Collectible : MonoBehaviour
         nJump.text = increaseNJump.ToString();
         nWall.text = increaseNWall.ToString();
         nInvisibility.text = increaseNWall.ToString();
-        playermovement = GetComponent<HoverControlRay>();
+        playermovement = GetComponent<HoverControlRay>(); //mi serve per richiamare la coroutine dal HoverControlRay
 
-        //Dichiaro vari slider
+        //Dichiaro vari slider a 0 per lo start
         ShieldTimer = 0f;
         ShieldSlider.value = ShieldTimer;
-
+        SemRedTimer = 0f;
+        SemRedSlider.value = SemRedTimer;
+        SemGreenTimer = 0f;
+        SemGreenSlider.value = SemGreenTimer;
+        InvisiTimer = 0f;
+        InvisiSlider.value = InvisiTimer;
     }
-
+    /// <summary>
+    /// Ci sono i trigger di tutti i collezzionabili disponibili
+    /// </summary>
+    /// <param name="other"></param>
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("CollectibleJump"))
@@ -84,11 +99,17 @@ public class Collectible : MonoBehaviour
         if (other.CompareTag("CollectibleSemRed"))
         { 
             Destroy(other.gameObject);
+            SemRedTimer = SemDuration;
+            SemRedSlider.maxValue = SemDuration;
+            SemRedSlider.value = SemRedTimer;
             StartCoroutine(playermovement.SemaforoRed());
         }
         if (other.CompareTag("CollectibleSemGreen"))
         {
             Destroy(other.gameObject);
+            SemGreenTimer = 10.0f;
+            SemGreenSlider.maxValue = 10.0f;
+            SemGreenSlider.value = SemGreenTimer;
             StartCoroutine(playermovement.SemaforoGreen());
         }
     }
@@ -121,8 +142,6 @@ public class Collectible : MonoBehaviour
         {
             increaseNShield -= 1f;
             StartCoroutine(Shield());
-            
-
         }
         if (ShieldTimer > 0)
         {
@@ -134,29 +153,29 @@ public class Collectible : MonoBehaviour
         {
             StartCoroutine(SetActivePlatform());
         }
-
-        if (increaseNInvisibility > 0)
+        //Ho collegato InvisiTimer alla coroutine così da avere un if e non avere problemi se premi più volte il tasto
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            if (Input.GetKey(KeyCode.Alpha3))
-            {
-                increaseNInvisibility -= 1f;
-                UpdateFundsDisplayInvisibility();
-                StartCoroutine(Invisibility());
-            }
+            increaseNInvisibility -= 1f;
+            UpdateFundsDisplayInvisibility();
+            InvisiTimer = InvisiDuration;
+            InvisiSlider.maxValue = InvisiDuration;
+            InvisiSlider.value = InvisiTimer;
+            StartCoroutine(Invisibility());
         }
-        //Semaforo fa crashare
-        //if (increaseNSemRed > 0)
-        //{
-        //    increaseNSemRed -= 1f;
-        //    StartCoroutine(playercontrol.SemaforoRed());
-        //}
-        //if (increaseNSemGreen > 0)
-        //{
-        //    increaseNSemGreen -= 1f;
-        //    StartCoroutine(playercontrol.SemaforoGreen());
-        //}
-
+        //Timer necessari per visualizzare su schermo per quanto tempo c'è il buff o debuff
+        if (SemRedTimer > 0)
+        {
+            SemRedTimer -= Time.deltaTime;
+            SemRedSlider.value = SemRedTimer;
+        }
+        if (SemGreenTimer > 0)
+        {
+            SemGreenTimer -= Time.deltaTime;
+            SemGreenSlider.value = SemGreenTimer;
+        }
     }
+    //Tutti gli UpdateFunds servono per aggiornare i vari testi in base alle quantità trasformate in stringhe per poterli riportare senza errori
     private void UpdateFundsDisplayJump()
     {
         nJump.text = increaseNJump.ToString();
@@ -171,12 +190,16 @@ public class Collectible : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// Prendo un prefab e lo piazzo nel mondo secondo le coordina descritte in base alla posizione del giocatore con anche un autodistruzione
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Wall()
     {
 
-        Vector3 wallPosition = transform.position - transform.forward * 2.0f;
-        GameObject newWall = Instantiate(wallPrefab, wallPosition, Quaternion.identity);
+        Vector3 wallPosition = transform.position - transform.forward * 3.0f;
+        wallPosition.y += 1.0f;
+        GameObject newWall = Instantiate(wallPrefab, wallPosition, transform.rotation);
         yield return new WaitForSeconds(delayWall);
         Destroy(newWall);
     }
@@ -185,10 +208,14 @@ public class Collectible : MonoBehaviour
     public IEnumerator Shield()
     {
         shield = true;
-        yield return new WaitForSeconds(delayInvicibility);
+        yield return new WaitForSeconds(ShieldDuration);
         shield = false;
     }
-
+    /// <summary>
+    /// Riesce a prendere tutti i GameObject della lista platforms e li disattiva temporaneamente
+    /// È l'effetto che diamo allo Shield se preso
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator SetActivePlatform()
     {
         for (int i =0; i<platforms.Count;i++)
@@ -197,7 +224,7 @@ public class Collectible : MonoBehaviour
             gameObject.SetActive(false);
 
         }
-        yield return new WaitForSeconds(delayInvicibility);
+        yield return new WaitForSeconds(ShieldDuration);
         for (int i = 0; i < platforms.Count; i++)
         {
             GameObject gameObject = platforms[i];
@@ -205,13 +232,21 @@ public class Collectible : MonoBehaviour
         }
 
     }
-
+    /// <summary>
+    /// Riesce a controllare InvisiTimer e non disattivarsi a caso se il giocatore decidesse di resettare il tempo senza aspettare la fine
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator Invisibility()
     {
-        
         greenEnemy.SetActive(false);
-        yield return new WaitForSeconds(delayEnemy);
+        while (InvisiTimer > 0)
+        {
+            yield return null;
+            InvisiTimer -= Time.deltaTime;
+            InvisiSlider.value = InvisiTimer;
+        }
         greenEnemy.SetActive(true);
+
     }
 
 
